@@ -1,3 +1,3 @@
 # emjeolmi_back
 
-가희 브랜치 생성 test
+브랜치가 왜 안 만들어질까여?
