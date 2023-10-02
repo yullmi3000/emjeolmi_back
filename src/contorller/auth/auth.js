@@ -61,6 +61,7 @@ export const joinAndLogin = async (conn, id, password, res) => {
         // 사용자 추가 실패
         console.log('사용자 추가 실패');
         res.send({
+            ok: false,
             message: 'Failed to add user'
         })
     }
@@ -89,6 +90,7 @@ export const auth = async (req, res) => {
     } catch (error) {
         console.log("error: ", error);
         res.send({
+            ok: false,
             message: error.message
         });
     }
