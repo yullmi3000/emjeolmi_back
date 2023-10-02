@@ -1,6 +1,5 @@
 import pool from "../../config/database.js";
 import { createDiary } from "../../dao/diary/diaryDao.js";
-import authJWT from '../../middleware/auth/authMiddleware.js';
 
 export const diaryUpload = async (req, res) => {
 
@@ -15,12 +14,14 @@ export const diaryUpload = async (req, res) => {
         // 일기 등록 sql
         const [newDiary] = await createDiary(conn, params);
         res.status(200).send({
+            ok: true,
             message: 'Diary registration complete',
         })
         conn.release();
     } catch (error) {
         console.log("error: ", error);
         res.send({
+            ok: false,
             message: error.message
         });
     }
