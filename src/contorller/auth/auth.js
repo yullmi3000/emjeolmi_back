@@ -1,5 +1,7 @@
 import pool from "../../config/database.js";
 import bcrypt from 'bcrypt';
+import {sign, verify, refresh, refreshVerify} from '../../utils/jwtUtils.js';
+import redisClient from "../../utils/redis.js";
 import { isExistUser } from "../../dao/auth/userDao.js";
 import { createUser } from "../../dao/auth/userDao.js";
 import { readUser } from "../../dao/auth/userDao.js";
@@ -13,22 +15,31 @@ export const login = async (conn, id, password, res) => {
 
     // 비밀번호 일치 여부 확인
     const check = await bcrypt.compare(password, user[0].password);
-    console.log('user.password: ', user[0].password);
-    console.log('password: ', password);
-    console.log('check: ', check);
 
     if (check) {
         // 비밀번호 일치, 로그인 성공
-        res.send({
-            message: 'Login Successful'
-        })
-    } else {
-        // 비밀번호 불일치, 로그인 실패
-        res.send({
-            message: 'Login Failed'
-        })
+        // access & refresh token 발급
+        const accessToken = sign(user[0]);
+        const refreshToken = refresh(user);
+
+        // 발급한 refresh token을 redis에 key를 id로 저장
+        redisClient.set(user[0].rid, refreshToken);
+
+        res.status(200).send({ // client에게 토큰 모두를 반환
+            ok: true,
+            data: {
+                message: 'Login Successful',
+                accessToken,
+                refreshToken,
+            },
+          });
+        } else {
+            res.status(401).send({
+            ok: false,
+            message: 'password is incorrect',
+        });
     }
-}
+};
 
 // 신규 사용자 회원가입 및 로그인
 export const joinAndLogin = async (conn, id, password, res) => {
@@ -79,7 +90,7 @@ export const auth = async (req, res) => {
         console.log("error: ", error);
         res.send({
             message: error.message
-        })
+        });
     }
 }
 
