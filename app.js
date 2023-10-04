@@ -2,13 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import router from "./src/router/index.js";
-import http from 'http';
 import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
-// const server = http.createServer(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,6 +23,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/', router);
+
+app.get('/', (req, res) => {
+    res.send('Hello, ngrok!');
+  });
+  
 
 const SERVER_HOST = process.env.SERVER_HOST;
 app.listen(SERVER_HOST, '0.0.0.0', () => {
