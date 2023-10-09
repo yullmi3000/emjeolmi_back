@@ -18,4 +18,3 @@ export const readDiary = async (conn, rid) => {
     const [DiaryContent] = await conn.query(readDiary, rid);
     return [DiaryContent];
 }
-

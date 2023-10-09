@@ -7,3 +7,4 @@ const router = express.Router();
 router.post('/auth', auth);
 
 export default router;
+
