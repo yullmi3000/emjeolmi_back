@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import router from "./src/router/index.js";
-import cors from 'cors';
 
 dotenv.config();
 
@@ -14,13 +13,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json({
     limit : '50mb'
 }));
-
-const corsOptions = {
-    origin: ['https://7c56-1-210-103-203.ngrok-free.app', 'http://localhost:3000', 'http://emjeolmi-chainary.c6jdftrp38iy.ap-northeast-2.rds.amazonaws.com:8080'],
-    credentials: true
-}
-
-app.use(cors(corsOptions));
 
 app.use('/', router);
 
