@@ -16,7 +16,7 @@ app.use(express.json({
 }));
 
 const corsOptions = {
-    origin: 'http://3.34.72.88/',
+    origin: ['https://7c56-1-210-103-203.ngrok-free.app', 'http://localhost:3000', 'http://emjeolmi-chainary.c6jdftrp38iy.ap-northeast-2.rds.amazonaws.com:8080'],
     credentials: true
 }
 
