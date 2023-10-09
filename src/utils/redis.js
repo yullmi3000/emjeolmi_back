@@ -19,4 +19,3 @@ redisClient.connect().then(); // redis v4 연결 (비동기)
 const redisCli = redisClient.v4;
 
 export default redisClient;
-
