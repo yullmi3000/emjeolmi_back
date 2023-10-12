@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import router from "./src/router/index.js";
+
+dotenv.config();
 
 const app = express();
 
-<<<<<<< Updated upstream
-app.listen(3000, function(){
-    console.log('server start on 3000');
-})
-=======
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,4 +26,4 @@ app.listen(SERVER_HOST, '0.0.0.0', () => {
     console.log(`✅ Server Start Listening on port http://localhost:${SERVER_HOST}`);
 });
 
->>>>>>> Stashed changes
+export default app;

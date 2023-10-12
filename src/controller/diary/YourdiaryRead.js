@@ -1,5 +1,3 @@
-
-
 import { readDiary } from "../../dao/diary/diaryDao.js";
 import { readUser } from "../../dao/auth/userDao.js";
 import { updateVisitorInfo } from "../../dao/visitor/visitorDao.js"; // Visitor 정보 업데이트를 위한 DAO 추가
@@ -23,7 +21,7 @@ const YourdiaryRead = async (req, res) => {
             if (updateSuccess) {
                 res.status(200).send({
                     ok: true,
-                    message: `Diary Reading complete, 호출된 id는 ${id}입니다.`,
+                    message: Diary Reading complete, 호출된 id는 ${id}입니다.,
                 });
             } else {
                 res.status(500).send({
